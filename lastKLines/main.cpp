@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// print out the lastKLines of a file
 void printLastKLines (string filename, int k)  {
   
   ifstream f(filename);
@@ -26,6 +27,7 @@ void printLastKLines (string filename, int k)  {
   
   // print the results
   int startLine = (totalLines <k)?0: currentLine;
+  if (k>totalLines) k  = totalLines;
   for (int i=0; i<k;i++){
     cout << kLines[(startLine+i)%k]<<endl;
   }
@@ -39,6 +41,8 @@ int main() {
   cout <<endl<<endl;
   printLastKLines("../test1.txt", 3);
   cout <<endl<<endl;
+  printLastKLines("../test1.txt", 20);
+    
   return 0;
     
  }
