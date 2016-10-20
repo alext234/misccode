@@ -3,45 +3,57 @@
 
 using namespace std;
 
+class PrintFile {
+  
+public:
+  
+  PrintFile () = delete;
+  
+  PrintFile (string filename) : f(filename) {
+  }
+  
+  void printKLines (int k){
+    if (!f.is_open()) return;
+    
+    string *kLines{new string[k]};
+    int totalLines{0};
+    int currentLine{0};
+    
+    string line;
+    // read file line by line
+    while (!f.eof()){
+      getline(f, line);
+      kLines[currentLine] = line;
+      currentLine = (currentLine+1)%k;
+      ++totalLines;
+    }
+    
+    
+    // print the results
+    int startLine = (totalLines <k)?0: currentLine;
+    if (k>totalLines) k  = totalLines;
+    for (int i=0; i<k;i++){
+      cout << kLines[(startLine+i)%k]<<endl;
+    }
+    delete[]  kLines;
+    
+    
+  }
+  
+private:
+  
+  ifstream f;
+};
+
 // print out the lastKLines of a file
-void printLastKLines (string filename, int k)  {
-  
-  ifstream f(filename);
-  
-  if (!f.is_open()) return;
-  
-  string *kLines{new string[k]};
-  int totalLines{0};
-  int currentLine{0};
-  
-  string line;
-  // read file line by line
-  while (!f.eof()){
-    getline(f, line);
-    kLines[currentLine] = line;
-    currentLine = (currentLine+1)%k;
-    ++totalLines;
-  }
-  f.close(); // not really required; end of the function f will be closed
-  
-  
-  // print the results
-  int startLine = (totalLines <k)?0: currentLine;
-  if (k>totalLines) k  = totalLines;
-  for (int i=0; i<k;i++){
-    cout << kLines[(startLine+i)%k]<<endl;
-  }
-  delete[]  kLines;
-  
-  
-}
+
 
 int main() {
-  printLastKLines("fileNotExist.txt", 3);
+  PrintFile("fileNotExist.txt").printKLines(3);
   cout <<endl<<endl;
-  printLastKLines("../test1.txt", 3);
+  PrintFile("../test1.txt").printKLines(3);
   cout <<endl<<endl;
-  printLastKLines("../test1.txt", 20);
+  PrintFile("../test1.txt").printKLines(20);
     
   return 0;
     
