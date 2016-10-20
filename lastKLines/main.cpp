@@ -22,7 +22,7 @@ void printLastKLines (string filename, int k)  {
     currentLine = (currentLine+1)%k;
     ++totalLines;
   }
-  f.close();
+  f.close(); // not really required; end of the function f will be closed
   
   
   // print the results
