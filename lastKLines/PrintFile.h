@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 
+
 class PrintFile {
   
 public:
@@ -15,7 +16,8 @@ public:
   
 
   
-  void printKLines (int k);
+  void printKLines (int k,  std::ostream& output=std::cout);
+  
   
 private:
   

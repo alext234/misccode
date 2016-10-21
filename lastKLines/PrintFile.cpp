@@ -34,8 +34,8 @@ private:
 PrintFile::PrintFile (std::string filename) : f(filename) {
   
 }
-  
-void PrintFile::printKLines (int k){
+void PrintFile::printKLines (int k, std::ostream& output){
+    
     if (!f.is_open()) return;
     
     CircularBuffer<string> kLines{k}; //RAII-style buffer
@@ -57,7 +57,7 @@ void PrintFile::printKLines (int k){
     if (k>totalLines) k  = totalLines;
     
     for (int i=0; i<k;i++){
-      cout << kLines[(startLine+i)%k]<<endl;
+      output << kLines[(startLine+i)%k]<<endl;
     }
     
     
