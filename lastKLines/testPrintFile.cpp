@@ -1,8 +1,12 @@
 #include "gmock/gmock.h"    
 #include "PrintFile.h"
 
+
 TEST(TestPrintFile, InputFileDoesNotExist) { 
-   
+   std::stringstream ss;
+   PrintFile pf ("someFileThatDoesNotExist.txt");
+   pf.printKLines(3,ss);
+   ASSERT_THAT (ss.gcount(),0);
    
 }
 
